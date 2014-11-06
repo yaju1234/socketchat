@@ -10,6 +10,7 @@ import com.example.model.OnMessageProcess;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,7 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 	StringTokenizer tokens;
 	private ArrayList<String> list = new ArrayList<String>();
 	private ChatUserAdapter adapter;
-	private TextView tv_chat_with,tv_chat_text;
+	private TextView tv_chat_with, tv_chat_text;
 	private Button btn_send;
 	private EditText et_input_text;
 	private String send_to;
@@ -44,10 +45,10 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 		ll_list_slidermenu = (LinearLayout) findViewById(R.id.ll_list_slidermenu);
 		iv_slider = (ImageView) findViewById(R.id.iv_slider);
 		ll_list = (ListView) findViewById(R.id.ll_list);
-		tv_chat_with = (TextView)findViewById(R.id.tv_chat_with);
-		tv_chat_text= (TextView)findViewById(R.id.tv_chat_text);
-		btn_send = (Button)findViewById(R.id.btn_send);
-		et_input_text = (EditText)findViewById(R.id.et_input_text);
+		tv_chat_with = (TextView) findViewById(R.id.tv_chat_with);
+		tv_chat_text = (TextView) findViewById(R.id.tv_chat_text);
+		btn_send = (Button) findViewById(R.id.btn_send);
+		et_input_text = (EditText) findViewById(R.id.et_input_text);
 		mDrawerLayout.openDrawer(ll_list_slidermenu);
 		iv_slider.setOnClickListener(this);
 
@@ -59,12 +60,12 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 
 		cp = new ConnectionProcess(this, this);
 		cp.start();
-		/*ping = new PingChatServer(this, cp);
-		ping.start();
-		refreshUsers = new RefreshUsers(this, cp);
-		refreshUsers.start();
-		cp.sendData("n" + ":" + mUSerName + ":" + mUserId);*/
-		
+		/*
+		 * ping = new PingChatServer(this, cp); ping.start(); refreshUsers = new
+		 * RefreshUsers(this, cp); refreshUsers.start(); cp.sendData("n" + ":" +
+		 * mUSerName + ":" + mUserId);
+		 */
+
 		btn_send.setOnClickListener(this);
 
 	}
@@ -79,11 +80,11 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 				mDrawerLayout.openDrawer(ll_list_slidermenu);
 			}
 		case R.id.btn_send:
-			if(et_input_text.getText().toString().trim().length()>0){
+			if (et_input_text.getText().toString().trim().length() > 0) {
 				send(et_input_text.getText().toString().trim());
 				et_input_text.setText("");
 			}
-			
+
 			break;
 
 		}
@@ -99,7 +100,7 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 			addOnlineMember(tokens);
 		} else if (firstToken.equals("q")) {
 			removeOnlineMember(tokens);
-		}else if (firstToken.equals("$")) {
+		} else if (firstToken.equals("$")) {
 			receiveMsg(tokens);
 		}
 
@@ -177,44 +178,41 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 			});
 		}
 	}
-	
+
 	public void receiveMsg(StringTokenizer st) {
-		try{
+		try {
 			String ss = "";
-			
+
 			final String s1 = new String(tokens.nextToken());
 			final String s2 = new String(tokens.nextToken());
 			runOnUiThread(new Runnable() {
-				
+
 				@Override
 				public void run() {
-					tv_chat_text.append("\n"+s1+": "+s2 );
-					
+					tv_chat_text.append("\n\n" + Html.fromHtml("<font color=\"#09500e\"><b>"+s1+"</b></font>") + ": " + s2);
+
 				}
-			});	
-		}catch(Exception e){
+			});
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+
 	}
-	
-	public void send(String val){
-		 String lastmesg="$"+":"+send_to+":"+val;
-		 cp.sendData(lastmesg);
-		 tv_chat_text.append("\n"+mUSerName+": "+val );
+
+	public void send(String val) {
+		String lastmesg = "$" + ":" + send_to + ":" + val;
+		cp.sendData(lastmesg);
+		tv_chat_text.append("\n\n" + Html.fromHtml("<font color=\"#09500e\"><b>"+mUSerName+"</b></font>") + ": " + val);
 	}
 
 	@Override
 	public void userSelect(String id) {
 		tv_chat_with.setVisibility(View.VISIBLE);
-		tv_chat_with.setText("Chating  with "+id);
-		send_to  = id;
-		
+		tv_chat_with.setText("Chating  with " + id);
+		send_to = id;
+
 	}
-	
+
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -228,7 +226,7 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 		refreshUsers = new RefreshUsers(this, cp);
 		refreshUsers.start();
 		cp.sendData("n" + ":" + mUSerName + ":" + mUserId);
-		
+
 	}
 
 }
