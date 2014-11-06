@@ -3,6 +3,7 @@ package com.example.androidchat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import com.example.adapter.ChatAdapter;
 import com.example.adapter.ChatUserAdapter;
 import com.example.adapter.ChatUserAdapter.OnUserSelect;
 import com.example.model.OnMessageProcess;
@@ -30,12 +31,15 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 	private ListView ll_list;
 	String recievedMessage = null;
 	StringTokenizer tokens;
-	private ArrayList<String> list = new ArrayList<String>();
+	private ArrayList<String> listUser = new ArrayList<String>();
+	private ArrayList<String> listmsg = new ArrayList<String>();
 	private ChatUserAdapter adapter;
-	private TextView tv_chat_with, tv_chat_text;
+	private TextView tv_chat_with;
+	private ListView lv_chat;
 	private Button btn_send;
 	private EditText et_input_text;
 	private String send_to;
+	private ChatAdapter chatAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 		iv_slider = (ImageView) findViewById(R.id.iv_slider);
 		ll_list = (ListView) findViewById(R.id.ll_list);
 		tv_chat_with = (TextView) findViewById(R.id.tv_chat_with);
-		tv_chat_text = (TextView) findViewById(R.id.tv_chat_text);
+		lv_chat = (ListView) findViewById(R.id.lv_chat);
 		btn_send = (Button) findViewById(R.id.btn_send);
 		et_input_text = (EditText) findViewById(R.id.et_input_text);
 		mDrawerLayout.openDrawer(ll_list_slidermenu);
@@ -107,17 +111,17 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 	}
 
 	public void refrteshOnlineUserList(StringTokenizer st) {
-		list.clear();
+		listUser.clear();
 		while (st.hasMoreTokens()) {
 			String member = new String(tokens.nextToken());
 			if (!member.equalsIgnoreCase(mUSerName)) {
-				list.add(member);
+				listUser.add(member);
 			}
 
 		}
 
-		if (list != null) {
-			adapter = new ChatUserAdapter(DashBoardActivity.this, R.layout.chat_row, list);
+		if (listUser != null) {
+			adapter = new ChatUserAdapter(DashBoardActivity.this, R.layout.chat_user_row, listUser);
 			runOnUiThread(new Runnable() {
 
 				@Override
@@ -134,13 +138,13 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 		while (st.hasMoreTokens()) {
 			String member = new String(tokens.nextToken());
 			if (!member.equalsIgnoreCase(mUSerName)) {
-				list.add(member);
+				listUser.add(member);
 			}
 
 		}
 
-		if (list != null) {
-			adapter = new ChatUserAdapter(DashBoardActivity.this, R.layout.chat_row, list);
+		if (listUser != null) {
+			adapter = new ChatUserAdapter(DashBoardActivity.this, R.layout.chat_user_row, listUser);
 			runOnUiThread(new Runnable() {
 
 				@Override
@@ -157,17 +161,17 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 
 		while (st.hasMoreTokens()) {
 			String member = new String(tokens.nextToken());
-			for (int i = 0; i < list.size(); i++) {
-				if (member.equalsIgnoreCase(list.get(i))) {
-					list.remove(i);
+			for (int i = 0; i < listUser.size(); i++) {
+				if (member.equalsIgnoreCase(listUser.get(i))) {
+					listUser.remove(i);
 					break;
 				}
 			}
 
 		}
 
-		if (list != null) {
-			adapter = new ChatUserAdapter(DashBoardActivity.this, R.layout.chat_row, list);
+		if (listUser != null) {
+			adapter = new ChatUserAdapter(DashBoardActivity.this, R.layout.chat_user_row, listUser);
 			runOnUiThread(new Runnable() {
 
 				@Override
@@ -185,11 +189,14 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 
 			final String s1 = new String(tokens.nextToken());
 			final String s2 = new String(tokens.nextToken());
+			listmsg.add("RECEIVE~"+s1+"~"+s2);
 			runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
-					tv_chat_text.append("\n\n" + Html.fromHtml("<font color=\"#09500e\"><b>"+s1+"</b></font>") + ": " + s2);
+					chatAdapter = new ChatAdapter(DashBoardActivity.this, R.layout.chat_row, listmsg);
+					lv_chat.setAdapter(chatAdapter);
+					//tv_chat_text.append("\n\n" + Html.fromHtml("<font color=\"#09500e\"><b>"+s1+"</b></font>") + ": " + s2);
 
 				}
 			});
@@ -202,11 +209,15 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 	public void send(String val) {
 		String lastmesg = "$" + ":" + send_to + ":" + val;
 		cp.sendData(lastmesg);
-		tv_chat_text.append("\n\n" + Html.fromHtml("<font color=\"#09500e\"><b>"+mUSerName+"</b></font>") + ": " + val);
+		listmsg.add("SEND~"+mUSerName+"~"+val);
+		chatAdapter = new ChatAdapter(DashBoardActivity.this, R.layout.chat_row, listmsg);
+		lv_chat.setAdapter(chatAdapter);
+		//tv_chat_text.append("\n\n" + Html.fromHtml("<font color=\"#09500e\"><b>"+mUSerName+"</b></font>") + ": " + val);
 	}
 
 	@Override
 	public void userSelect(String id) {
+		listmsg.clear();
 		tv_chat_with.setVisibility(View.VISIBLE);
 		tv_chat_with.setText("Chating  with " + id);
 		send_to = id;

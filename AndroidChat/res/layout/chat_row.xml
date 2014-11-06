@@ -1,35 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingBottom="3dp"
-    android:paddingLeft="5dp"
-     android:paddingRight="5dp"
-    android:paddingTop="3dp" >
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/ll_main"
+    <RelativeLayout
+        android:id="@+id/rl_receiver_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:orientation="vertical" >
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="top"
+        android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/tv_user"
+            android:id="@+id/tv_receive_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#adadad"
-             />
-    </LinearLayout>
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/iv_receiver"
+            android:background="@drawable/chat_left_bubble"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:text="HI! How are you! What are you doing now. "
+            android:textColor="#000000"
+            android:textSize="15sp" />
 
-   <!--  <LinearLayout
+        <ImageView
+            android:id="@+id/iv_receiver"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/no_image" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_sender_layout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="vertical" 
-        android:background="#2b2b2b">
-    </LinearLayout> -->
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:gravity="top"
+        android:orientation="horizontal" >
+
+       
+
+        <TextView
+            android:id="@+id/tv_send_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_toLeftOf="@+id/iv_sender"
+            android:background="@drawable/chat_right_bubble"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:paddingTop="5dp"
+            android:text="HI! How are you! What are you doing now. "
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/iv_sender"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/no_image" />
+    </RelativeLayout>
 
 </LinearLayout>

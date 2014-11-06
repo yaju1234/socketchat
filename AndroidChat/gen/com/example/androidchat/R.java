@@ -22,13 +22,16 @@ public final class R {
         public static final int background_bg=0x7f020000;
         public static final int button_bg=0x7f020001;
         public static final int button_bg1=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int input_text_bg=0x7f020004;
-        public static final int input_text_bg1=0x7f020005;
-        public static final int list_item_bg_normal=0x7f020006;
-        public static final int list_item_bg_pressed=0x7f020007;
-        public static final int list_selector=0x7f020008;
-        public static final int resp_menu=0x7f020009;
+        public static final int chat_left_bubble=0x7f020003;
+        public static final int chat_right_bubble=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int input_text_bg=0x7f020006;
+        public static final int input_text_bg1=0x7f020007;
+        public static final int list_item_bg_normal=0x7f020008;
+        public static final int list_item_bg_pressed=0x7f020009;
+        public static final int list_selector=0x7f02000a;
+        public static final int no_image=0x7f02000b;
+        public static final int resp_menu=0x7f02000c;
     }
     public static final class id {
         public static final int btn_send=0x7f070005;
@@ -37,19 +40,27 @@ public final class R {
         public static final int editText1=0x7f070009;
         public static final int editText2=0x7f07000a;
         public static final int et_input_text=0x7f070004;
+        public static final int iv_receiver=0x7f07000f;
+        public static final int iv_sender=0x7f070012;
         public static final int iv_slider=0x7f070001;
         public static final int ll_list=0x7f070007;
         public static final int ll_list_slidermenu=0x7f070006;
-        public static final int ll_main=0x7f07000c;
+        public static final int ll_main=0x7f070013;
+        public static final int lv_chat=0x7f070003;
+        public static final int main=0x7f07000c;
+        public static final int rl_receiver_layout=0x7f07000d;
+        public static final int rl_sender_layout=0x7f070010;
         public static final int textView1=0x7f070008;
-        public static final int tv_chat_text=0x7f070003;
         public static final int tv_chat_with=0x7f070002;
-        public static final int tv_user=0x7f07000d;
+        public static final int tv_receive_msg=0x7f07000e;
+        public static final int tv_send_msg=0x7f070011;
+        public static final int tv_user=0x7f070014;
     }
     public static final class layout {
         public static final int activity_dashboard=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int chat_row=0x7f030002;
+        public static final int chat_user_row=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f050000;
