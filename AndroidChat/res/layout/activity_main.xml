@@ -11,32 +11,41 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
+        android:textSize="20sp"
+       android:layout_marginBottom="50dp"
         android:textColor="#ffffff"
-        android:text="SAMPLE CHAT" />
+        android:text="INSTANT  MESSAGING" />
 
+  
     <EditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="40dp" 
+        android:gravity="center"
+        android:background="@drawable/input_text_bg"
+        android:paddingLeft="10dp"
         android:hint="Name">
     </EditText>
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+         android:layout_height="40dp" 
+        android:background="@drawable/input_text_bg"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
         android:hint="Username"
-        android:ems="10" />
+         />
 
     <Button
         android:id="@+id/button1"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="Login" />
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button_bg"
+        android:textColor="#ffffff"
+        android:text="Log In" />
 
 </LinearLayout>

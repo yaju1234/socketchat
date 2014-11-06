@@ -59,11 +59,11 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 
 		cp = new ConnectionProcess(this, this);
 		cp.start();
-		ping = new PingChatServer(this, cp);
+		/*ping = new PingChatServer(this, cp);
 		ping.start();
 		refreshUsers = new RefreshUsers(this, cp);
 		refreshUsers.start();
-		cp.sendData("n" + ":" + mUSerName + ":" + mUserId);
+		cp.sendData("n" + ":" + mUSerName + ":" + mUserId);*/
 		
 		btn_send.setOnClickListener(this);
 
@@ -117,7 +117,14 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 
 		if (list != null) {
 			adapter = new ChatUserAdapter(DashBoardActivity.this, R.layout.chat_row, list);
-			ll_list.setAdapter(adapter);
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					ll_list.setAdapter(adapter);
+
+				}
+			});
 		}
 	}
 
@@ -172,19 +179,24 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 	}
 	
 	public void receiveMsg(StringTokenizer st) {
-		
-		String ss = "";
-		
-		final String s1 = new String(tokens.nextToken());
-		final String s2 = new String(tokens.nextToken());
-		runOnUiThread(new Runnable() {
+		try{
+			String ss = "";
 			
-			@Override
-			public void run() {
-				tv_chat_text.append("\n"+s1+": "+s2 );
+			final String s1 = new String(tokens.nextToken());
+			final String s2 = new String(tokens.nextToken());
+			runOnUiThread(new Runnable() {
 				
-			}
-		});
+				@Override
+				public void run() {
+					tv_chat_text.append("\n"+s1+": "+s2 );
+					
+				}
+			});	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
 		
 		
 	}
@@ -207,6 +219,16 @@ public class DashBoardActivity extends BaseActivity implements OnMessageProcess,
 	protected void onStop() {
 		super.onStop();
 		cp.sendData("q" + ":");
+	}
+
+	@Override
+	public void socketConnected() {
+		ping = new PingChatServer(this, cp);
+		ping.start();
+		refreshUsers = new RefreshUsers(this, cp);
+		refreshUsers.start();
+		cp.sendData("n" + ":" + mUSerName + ":" + mUserId);
+		
 	}
 
 }

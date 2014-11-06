@@ -5,12 +5,15 @@
     android:orientation="vertical"
     android:paddingBottom="3dp"
     android:paddingLeft="5dp"
+     android:paddingRight="5dp"
     android:paddingTop="3dp" >
 
     <LinearLayout
         android:id="@+id/ll_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
         android:orientation="vertical" >
 
         <TextView
@@ -18,8 +21,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="#000000"
-            android:textStyle="bold" />
+            android:textColor="#adadad"
+             />
     </LinearLayout>
+
+   <!--  <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="vertical" 
+        android:background="#2b2b2b">
+    </LinearLayout> -->
 
 </LinearLayout>
